@@ -1,0 +1,37 @@
+name: AriJB CI
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  core-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build and test portable core
+        run: |
+          cmake -S Core -B build/core -DCMAKE_BUILD_TYPE=Release
+          cmake --build build/core --parallel
+          cc -std=c11 -Wall -Wextra -Werror -ICore/include Tests/test_core.c Core/src/arijb_core.c -o build/test_core
+          ./build/test_core
+
+  ios-build:
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Show Xcode version
+        run: xcodebuild -version
+      - name: Build unsigned iOS app
+        run: |
+          xcodebuild -project AriJB.xcodeproj -scheme AriJB -sdk iphoneos -configuration Release -destination 'generic/platform=iOS' CODE_SIGNING_ALLOWED=NO -derivedDataPath build/DerivedData build
+      - uses: actions/upload-artifact@v4
+        with:
+          name: arijb-ios-build
+          path: build/DerivedData/Build/Products/Release-iphoneos/AriJB.app
+          if-no-files-found: error

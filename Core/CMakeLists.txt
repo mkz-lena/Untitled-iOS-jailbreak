@@ -1,0 +1,5 @@
+cmake_minimum_required(VERSION 3.20)
+project(arijb_core C)
+add_library(arijb_core STATIC src/arijb_core.c)
+target_include_directories(arijb_core PUBLIC include)
+target_compile_features(arijb_core PUBLIC c_std_11)
