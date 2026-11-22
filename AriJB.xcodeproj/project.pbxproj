@@ -7,6 +7,7 @@
   A10000000000000000000001 /* AriJBApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AriJBApp.swift; sourceTree = "<group>"; };
   A10000000000000000000002 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
   A10000000000000000000014 /* DeviceDiagnostics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceDiagnostics.swift; sourceTree = "<group>"; };
+  A10000000000000000000015 /* DeviceDiagnostics.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000000000000000000014; };
   A10000000000000000000003 /* AriJB.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AriJB.app; sourceTree = BUILT_PRODUCTS_DIR; };
   A10000000000000000000004 = {isa = PBXGroup; children = (A10000000000000000000001, A10000000000000000000002, A10000000000000000000014,); path = App/AriJB; sourceTree = SOURCE_ROOT; };
   A10000000000000000000005 = {isa = PBXGroup; children = (A10000000000000000000004, A10000000000000000000006,); sourceTree = "<group>"; };
