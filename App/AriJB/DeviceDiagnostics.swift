@@ -10,12 +10,11 @@ struct DeviceDiagnostics {
         var info = utsname()
         uname(&info)
 
-        var machineField = info.machine
-        let machine = withUnsafePointer(to: &machineField) {
-            $0.withMemoryRebound(
-                to: CChar.self,
-                capacity: MemoryLayout.size(ofValue: machineField)
-            ) {
+        let machineField = info.machine
+        let machineSize = MemoryLayout.size(ofValue: machineField)
+
+        let machine = withUnsafePointer(to: machineField) { pointer in
+            pointer.withMemoryRebound(to: CChar.self, capacity: machineSize) {
                 String(cString: $0)
             }
         }
@@ -29,8 +28,7 @@ struct DeviceDiagnostics {
 
     private static func sysctlString(_ name: String) -> String? {
         var size = 0
-        guard sysctlbyname(name, nil, &size, nil, 0) == 0,
-              size > 1 else {
+        guard sysctlbyname(name, nil, &size, nil, 0) == 0, size > 1 else {
             return nil
         }
 
